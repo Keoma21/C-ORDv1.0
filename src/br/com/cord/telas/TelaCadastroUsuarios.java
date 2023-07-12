@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author Keoma
  */
 public class TelaCadastroUsuarios extends javax.swing.JFrame {
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -23,15 +24,15 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     public TelaCadastroUsuarios() {
         initComponents();
         conexao = ModuloConexao.conector();
-     }
-    
-    private void consultar(){
+    }
+
+    private void consultar() {
         String sql = "select * from tbusuarios where codUsuario=?";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1,txtCodUsuario.getText());
+            pst.setString(1, txtCodUsuario.getText());
             rs = pst.executeQuery();
-            
+
             if (rs.next()) {
                 txtUsuNome.setText(rs.getString(2));
                 txtCPFUsuario.setText(rs.getString(3));
@@ -44,10 +45,47 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
                 txtLoginUsuario.setText(rs.getString(9));
                 txtSenhaUsuario.setText(rs.getString(10));
                 txtPerfilUsuario.setSelectedItem(rs.getString(11));
-                     
-                
+
             } else {
+                JOptionPane.showMessageDialog(null,"Usuário Não Cadastrado!");
+                txtUsuNome.setText(null);
+                txtCPFUsuario.setText(null);
+                txtEmailUsuario.setText(null);
+                txtFone1Usuario.setText(null);
+                txtFone2Usuario.setText(null);
+                txtSexUsuario.setSelectedItem(null);
+                txtEndUsuario.setText(null);
+                txtNascUsuario.setText(null);
+                txtLoginUsuario.setText(null);
+                txtSenhaUsuario.setText(null);
+                txtPerfilUsuario.setSelectedItem(null);
             }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void adicionar(){
+        String sql = "inser into tbusuarios (codUsuario,nomeUsuario,cpfUsuario,sexoUsuario,enderecoUsuario,dataNascimentoUsuario,telefone1Usuario,telefone2Usuario,login,senha,perfilUsuario,emailUsuario) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            
+            pst.setString(1,txtCodUsuario.getText());
+            pst.setString(2,txtUsuNome.getText());
+            pst.setString(3,txtCPFUsuario.getText());
+            pst.setString(4,txtSexUsuario.getSelectedItem().toString());
+            pst.setString(5,txtEndUsuario.getText());
+            pst.setString(6,txtNascUsuario.getText());
+            pst.setString(7,txtFone1Usuario.getText());
+            pst.setString(8,txtFone2Usuario.getText());
+            pst.setString(9,txtLoginUsuario.getText());
+            pst.setString(10,txtSenhaUsuario.getText());
+            pst.setString(11,txtPerfilUsuario.getSelectedItem().toString());
+            pst.setString(12,txtEmailUsuario.getText());
+            
+            pst.executeUpdate();
+            
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -400,7 +438,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaUsuarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        adicionar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtCodUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodUsuarioActionPerformed
