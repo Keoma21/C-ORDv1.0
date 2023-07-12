@@ -189,6 +189,7 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btnLogin.setBackground(new java.awt.Color(0, 153, 255));
         btnLogin.setForeground(new java.awt.Color(0, 0, 0));
