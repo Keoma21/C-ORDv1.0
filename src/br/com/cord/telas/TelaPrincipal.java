@@ -50,7 +50,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCadastroUsuario = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
@@ -60,6 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         btnMenuSair = new javax.swing.JMenuItem();
+        btnSobre = new javax.swing.JMenu();
 
         jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jFrame1.setTitle("Controle de Ordens - CORD 1.0");
@@ -177,6 +178,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnCadastroCliente.setText("Cadastro Cliente");
         btnCadastroCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroClienteActionPerformed(evt);
+            }
+        });
 
         btnAreaTecnica.setText("Área Técnica");
         btnAreaTecnica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -189,9 +195,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnCadastroItem.setText("Cadastro Item");
         btnCadastroItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastroItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroItemActionPerformed(evt);
+            }
+        });
 
         btnCadastroUsuario.setText("Cadastro Usuário");
         btnCadastroUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroUsuarioActionPerformed(evt);
+            }
+        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,7 +228,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jLabel3.setText("usuario");
+        lblUsuario.setText("usuario");
 
         lblData.setText("dataAtual");
 
@@ -251,6 +267,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        btnSobre.setText("Sobre");
+        btnSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSobreActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(btnSobre);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,7 +290,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnCadastroCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAreaTecnica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCadastroOS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
+                    .addComponent(lblUsuario)
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -299,7 +323,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblUsuario)
                     .addComponent(lblData)
                     .addComponent(jLabel5))
                 .addContainerGap())
@@ -326,6 +350,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
 
     }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void btnCadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroUsuarioActionPerformed
+        TelaCadastroUsuarios usuarios = new TelaCadastroUsuarios();
+        usuarios.setVisible(true);
+    }//GEN-LAST:event_btnCadastroUsuarioActionPerformed
+
+    private void btnCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroClienteActionPerformed
+        TelaCadastroClientes clientes = new TelaCadastroClientes();
+        clientes.setVisible(true);
+    }//GEN-LAST:event_btnCadastroClienteActionPerformed
+
+    private void btnCadastroItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroItemActionPerformed
+        TelaCadastroItens itens = new TelaCadastroItens();
+        itens.setVisible(true);
+    }//GEN-LAST:event_btnCadastroItemActionPerformed
+
+    private void btnSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobreActionPerformed
+        TelaSobre sobre = new TelaSobre();
+        sobre.setVisible(true);
+    }//GEN-LAST:event_btnSobreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,13 +407,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAreaTecnica;
+    public static javax.swing.JButton btnAreaTecnica;
     private javax.swing.JButton btnCadastroCliente;
     private javax.swing.JButton btnCadastroItem;
     private javax.swing.JButton btnCadastroOS;
     private javax.swing.JButton btnCadastroUsuario;
     private javax.swing.JMenuItem btnMenuSair;
     private javax.swing.JButton btnSair;
+    private javax.swing.JMenu btnSobre;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -379,7 +424,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -393,5 +437,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblData;
+    public static javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }
