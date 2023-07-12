@@ -47,46 +47,66 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
                 txtPerfilUsuario.setSelectedItem(rs.getString(11));
 
             } else {
-                JOptionPane.showMessageDialog(null,"Usuário Não Cadastrado!");
+                JOptionPane.showMessageDialog(null, "Usuário Não Cadastrado!");
                 txtUsuNome.setText(null);
                 txtCPFUsuario.setText(null);
                 txtEmailUsuario.setText(null);
                 txtFone1Usuario.setText(null);
                 txtFone2Usuario.setText(null);
-                txtSexUsuario.setSelectedItem(null);
+                //txtSexUsuario.setSelectedItem(null);
                 txtEndUsuario.setText(null);
                 txtNascUsuario.setText(null);
                 txtLoginUsuario.setText(null);
                 txtSenhaUsuario.setText(null);
-                txtPerfilUsuario.setSelectedItem(null);
+                //txtPerfilUsuario.setSelectedItem(null);
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    private void adicionar(){
-        String sql = "inser into tbusuarios (codUsuario,nomeUsuario,cpfUsuario,sexoUsuario,enderecoUsuario,dataNascimentoUsuario,telefone1Usuario,telefone2Usuario,login,senha,perfilUsuario,emailUsuario) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    private void adicionar() {
+        String sql = "insert into tbusuarios (codUsuario,nomeUsuario,cpfUsuario,sexoUsuario,enderecoUsuario,dataNascimentoUsuario,telefone1Usuario,telefone2Usuario,login,senha,perfilUsuario,emailUsuario) values(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            
-            pst.setString(1,txtCodUsuario.getText());
-            pst.setString(2,txtUsuNome.getText());
-            pst.setString(3,txtCPFUsuario.getText());
-            pst.setString(4,txtSexUsuario.getSelectedItem().toString());
-            pst.setString(5,txtEndUsuario.getText());
-            pst.setString(6,txtNascUsuario.getText());
-            pst.setString(7,txtFone1Usuario.getText());
-            pst.setString(8,txtFone2Usuario.getText());
-            pst.setString(9,txtLoginUsuario.getText());
-            pst.setString(10,txtSenhaUsuario.getText());
-            pst.setString(11,txtPerfilUsuario.getSelectedItem().toString());
-            pst.setString(12,txtEmailUsuario.getText());
-            
-            pst.executeUpdate();
-            
-            
+
+            pst.setString(1, txtCodUsuario.getText());
+            pst.setString(2, txtUsuNome.getText());
+            pst.setString(3, txtCPFUsuario.getText());
+            pst.setString(4, txtSexUsuario.getSelectedItem().toString());
+            pst.setString(5, txtEndUsuario.getText());
+            pst.setString(6, txtNascUsuario.getText());
+            pst.setString(7, txtFone1Usuario.getText());
+            pst.setString(8, txtFone2Usuario.getText());
+            pst.setString(9, txtLoginUsuario.getText());
+            pst.setString(10, txtSenhaUsuario.getText());
+            pst.setString(11, txtPerfilUsuario.getSelectedItem().toString());
+            pst.setString(12, txtEmailUsuario.getText());
+
+            if (txtUsuNome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");                
+            } else if(txtFone1Usuario.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");                
+            } else {
+
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso");
+                    txtUsuNome.setText(null);
+                    txtCPFUsuario.setText(null);
+                    txtEmailUsuario.setText(null);
+                    txtFone1Usuario.setText(null);
+                    txtFone2Usuario.setText(null);
+                    //txtSexUsuario.setSelectedItem(null);
+                    txtEndUsuario.setText(null);
+                    txtNascUsuario.setText(null);
+                    txtLoginUsuario.setText(null);
+                    txtSenhaUsuario.setText(null);
+                    //txtPerfilUsuario.setSelectedItem(null);
+                }
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -219,7 +239,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
 
         jLabel3.setText("Perfil de Usuário:");
 
-        txtPerfilUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Atendente", "Administrador", "Técnico", " " }));
+        txtPerfilUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Atendente", "Administrador", "Técnico" }));
 
         jButton1.setBackground(new java.awt.Color(0, 153, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -243,7 +263,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
 
         jButton5.setText("Excluir");
 
-        txtSexUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F", " ", " " }));
+        txtSexUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
 
         txtCodUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
