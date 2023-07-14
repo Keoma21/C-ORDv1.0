@@ -85,9 +85,9 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
             pst.setString(12, txtEmailUsuario.getText());
 
             if (txtUsuNome.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");                
-            } else if(txtFone1Usuario.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");                
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else if (txtFone1Usuario.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
 
                 int adicionado = pst.executeUpdate();
@@ -111,29 +111,86 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    private void alterar(){
+
+    private void alterar() {
         String sql = "update tbusuarios set nomeUsuario=?, cpfUsuario=?, sexoUsuario=?, enderecoUsuario=?, dataNascimentoUsuario=?, telefone1Usuario=?, telefone2Usuario=?, login=?, senha=?, perfilUsuario=?, emailUsuario=? where codUsuario=?";
-        
+
         try {
             pst = conexao.prepareStatement(sql);
-            
-            pst.setString(1,txtUsuNome.getText());
-            pst.setString(1,txtCPFUsuario.getText());
-            pst.setString(1,txtSexUsuario.getSelectedItem().toString());
-            pst.setString(1,txtEndUsuario.getText());
-            pst.setString(1,txtNascUsuario.getText());
-            pst.setString(1,txtFone1Usuario.getText());
-            pst.setString(1,txtFone2Usuario.getText());
-            pst.setString(1,txtLoginUsuario.getText());
-            pst.setString(1,txtSenhaUsuario.getText());
-            pst.setString(1,txtPerfilUsuario.getSelectedItem().toString());
-            pst.setString(1,txtEmailUsuario.getText());
-            
+
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtCPFUsuario.getText());
+            pst.setString(3, txtSexUsuario.getSelectedItem().toString());
+            pst.setString(4, txtEndUsuario.getText());
+            pst.setString(5, txtNascUsuario.getText());
+            pst.setString(6, txtFone1Usuario.getText());
+            pst.setString(7, txtFone2Usuario.getText());
+            pst.setString(8, txtLoginUsuario.getText());
+            pst.setString(9, txtSenhaUsuario.getText());
+            pst.setString(10, txtPerfilUsuario.getSelectedItem().toString());
+            pst.setString(11, txtEmailUsuario.getText());
+            pst.setString(12, txtCodUsuario.getText());
+
+            if (txtUsuNome.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else if (txtFone1Usuario.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
+            } else {
+
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso");
+                    txtUsuNome.setText(null);
+                    txtCPFUsuario.setText(null);
+                    txtEmailUsuario.setText(null);
+                    txtFone1Usuario.setText(null);
+                    txtFone2Usuario.setText(null);
+                    //txtSexUsuario.setSelectedItem(null);
+                    txtEndUsuario.setText(null);
+                    txtNascUsuario.setText(null);
+                    txtLoginUsuario.setText(null);
+                    txtSenhaUsuario.setText(null);
+                    //txtPerfilUsuario.setSelectedItem(null);
+                }
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-    
+
+    }
+
+    private void remover() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from tbUsuarios where codUsuario=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtCodUsuario.getText());
+                
+
+                int excluído = pst.executeUpdate();
+                if (excluído > 0) {
+                JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
+                txtUsuNome.setText(null);
+                txtCPFUsuario.setText(null);
+                txtEmailUsuario.setText(null);
+                txtFone1Usuario.setText(null);
+                txtFone2Usuario.setText(null);
+                //txtSexUsuario.setSelectedItem(null);
+                txtEndUsuario.setText(null);
+                txtNascUsuario.setText(null);
+                txtLoginUsuario.setText(null);
+                txtSenhaUsuario.setText(null);
+                //txtPerfilUsuario.setSelectedItem(null);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
     }
 
     /**
@@ -301,8 +358,18 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
         jButton3.setText("Cancelar");
 
         jButton4.setText("Alterar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Excluir");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         txtSexUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
 
@@ -513,6 +580,20 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaUsuarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //tentativa de fazer ele alterar e incluir o usuario em um mesmo botao. botão SALVAR
+
+        /*String sql = "SELECT EXISTS(SELECT * FROM tbusuarios WHERE codUsuario=?)";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCodUsuario.getText());
+            rs = pst.executeQuery();
+            
+            int botao = txtCodUsuario;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }*/
         adicionar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -527,6 +608,14 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         consultar();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        alterar();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        remover();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
