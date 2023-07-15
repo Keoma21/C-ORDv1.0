@@ -7,6 +7,7 @@ package br.com.cord.telas;
 import br.com.cord.dal.ModuloConexao;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -168,22 +169,21 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, txtCodUsuario.getText());
-                
 
                 int excluído = pst.executeUpdate();
                 if (excluído > 0) {
-                JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
-                txtUsuNome.setText(null);
-                txtCPFUsuario.setText(null);
-                txtEmailUsuario.setText(null);
-                txtFone1Usuario.setText(null);
-                txtFone2Usuario.setText(null);
-                //txtSexUsuario.setSelectedItem(null);
-                txtEndUsuario.setText(null);
-                txtNascUsuario.setText(null);
-                txtLoginUsuario.setText(null);
-                txtSenhaUsuario.setText(null);
-                //txtPerfilUsuario.setSelectedItem(null);
+                    JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
+                    txtUsuNome.setText(null);
+                    txtCPFUsuario.setText(null);
+                    txtEmailUsuario.setText(null);
+                    txtFone1Usuario.setText(null);
+                    txtFone2Usuario.setText(null);
+                    //txtSexUsuario.setSelectedItem(null);
+                    txtEndUsuario.setText(null);
+                    txtNascUsuario.setText(null);
+                    txtLoginUsuario.setText(null);
+                    txtSenhaUsuario.setText(null);
+                    //txtPerfilUsuario.setSelectedItem(null);
                 }
 
             } catch (Exception e) {
@@ -191,6 +191,40 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
             }
         }
 
+    }
+
+    private void consulta_avancada() {
+        String sql = "select * from tbUsuarios where nomeUsuario like ?";
+
+           try {               
+            pst = conexao.prepareStatement(sql);
+            //passando o coneteúdo da caixa de pesquisa para o ?. O sinal de % é a continuação da string sql.
+            pst.setString(1,txtPesqUsuarios.getText() + "%");
+            rs=pst.executeQuery();
+            //a linha abaixo usa o recurso da biblioteca rs2xml.jar
+            tblUsuarios.setModel(DbUtils.resultSetToTableModel(rs));
+            
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    //Método para setar os campos automaticamente
+    public void setarCampos(){
+        int setar = tblUsuarios.getSelectedRow();
+        txtUsuNome.setText(tblUsuarios.getModel().getValueAt(setar,1).toString());
+        txtCPFUsuario.setText(tblUsuarios.getModel().getValueAt(setar,2).toString());
+        txtSexUsuario.setSelectedItem(tblUsuarios.getModel().getValueAt(setar,3).toString());
+        txtEndUsuario.setText(tblUsuarios.getModel().getValueAt(setar,4).toString());
+        txtNascUsuario.setText(tblUsuarios.getModel().getValueAt(setar,5).toString());
+        txtFone1Usuario.setText(tblUsuarios.getModel().getValueAt(setar,6).toString());
+        txtFone2Usuario.setText(tblUsuarios.getModel().getValueAt(setar,7).toString());
+        txtLoginUsuario.setText(tblUsuarios.getModel().getValueAt(setar,8).toString());
+        txtSenhaUsuario.setText(tblUsuarios.getModel().getValueAt(setar,9).toString());
+        txtPerfilUsuario.setSelectedItem(tblUsuarios.getModel().getValueAt(setar,10).toString());
+        txtEmailUsuario.setText(tblUsuarios.getModel().getValueAt(setar,11).toString());
+        txtCodUsuario.setText(tblUsuarios.getModel().getValueAt(setar,12).toString());
     }
 
     /**
@@ -224,7 +258,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtEmailUsuario = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblUsuarios = new javax.swing.JTable();
         jLabel27 = new javax.swing.JLabel();
         txtCPFUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -242,7 +276,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
         txtCodUsuario = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesqUsuarios = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -294,7 +328,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -313,11 +347,21 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
+        tblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuariosMouseClicked(evt);
+            }
+        });
+        tblUsuarios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblUsuariosKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblUsuarios);
+        if (tblUsuarios.getColumnModel().getColumnCount() > 0) {
+            tblUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel27.setText("CPF:");
@@ -389,6 +433,12 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Pesquisar nome:");
+
+        txtPesqUsuarios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesqUsuariosKeyReleased(evt);
+            }
+        });
 
         jButton6.setText("Pesquisar");
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -488,7 +538,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextField1))
+                                                .addComponent(txtPesqUsuarios))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -591,7 +641,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPesqUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -655,6 +705,20 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         remover();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tblUsuariosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblUsuariosKeyReleased
+        
+    }//GEN-LAST:event_tblUsuariosKeyReleased
+
+    private void txtPesqUsuariosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqUsuariosKeyReleased
+        // Enquanto for digitando faço o evento abaixo
+        consulta_avancada();
+    }//GEN-LAST:event_txtPesqUsuariosKeyReleased
+
+    private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
+        // Este evento ocorrerá quando clicar com o mouse sobre o usuario na tabela
+        setarCampos();
+    }//GEN-LAST:event_tblUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -720,11 +784,10 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
+    private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtCPFUsuario;
     private javax.swing.JTextField txtCodUsuario;
     private javax.swing.JTextField txtEmailUsuario;
@@ -734,6 +797,7 @@ public class TelaCadastroUsuarios extends javax.swing.JFrame {
     private javax.swing.JTextField txtLoginUsuario;
     private javax.swing.JTextField txtNascUsuario;
     private javax.swing.JComboBox<String> txtPerfilUsuario;
+    private javax.swing.JTextField txtPesqUsuarios;
     private javax.swing.JTextField txtSenhaUsuario;
     private javax.swing.JComboBox<String> txtSexUsuario;
     private javax.swing.JTextField txtUsuNome;

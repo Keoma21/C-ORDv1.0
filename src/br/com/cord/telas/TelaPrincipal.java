@@ -255,13 +255,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3.setText("Fila de Consertos");
 
         jButton7.setText("Relatórios");
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jButton8.setText("Configurações");
+        jButton8.setText("Preferências");
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Menu");
 
-        jMenuBar1.setBackground(new java.awt.Color(60, 63, 65));
+        jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
+        jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
 
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
