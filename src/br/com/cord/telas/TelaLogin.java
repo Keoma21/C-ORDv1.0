@@ -194,6 +194,7 @@ public class TelaLogin extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(0, 153, 255));
         btnLogin.setForeground(new java.awt.Color(0, 0, 0));
         btnLogin.setText("Entrar");
+        btnLogin.setBorderPainted(false);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
