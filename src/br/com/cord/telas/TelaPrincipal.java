@@ -197,6 +197,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCadastroOS.setText("Ordem de Serviço");
         btnCadastroOS.setBorderPainted(false);
         btnCadastroOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastroOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroOSActionPerformed(evt);
+            }
+        });
 
         btnCadastroItem.setText("Itens");
         btnCadastroItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -401,6 +406,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaSobre sobre = new TelaSobre();
         sobre.setVisible(true);
     }//GEN-LAST:event_btnSobreActionPerformed
+
+    private void btnCadastroOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroOSActionPerformed
+        TelaOS os = new TelaOS();
+        os.setVisible(true);
+        desktop.add(os);
+    }//GEN-LAST:event_btnCadastroOSActionPerformed
 
     /**
      * @param args the command line arguments
