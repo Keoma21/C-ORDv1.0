@@ -299,29 +299,30 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="btnSair" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jButton9" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jButton8" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnAreaTecnica" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnCadastroCliente" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnCadastroItem" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="btnCadastroUsuario" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnCadastroOS" alignment="0" pref="145" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="lblData" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="desktop" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btnSair" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton9" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton8" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnAreaTecnica" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnCadastroCliente" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnCadastroItem" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnCadastroUsuario" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCadastroOS" alignment="0" pref="145" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="lblData" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="desktop" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="36" pref="83" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -330,8 +331,16 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -529,5 +538,13 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Apar&#xea;ncia"/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jToggleButton1StateChanged"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

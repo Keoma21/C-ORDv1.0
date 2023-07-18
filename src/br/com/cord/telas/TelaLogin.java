@@ -63,6 +63,22 @@ public class TelaLogin extends javax.swing.JFrame {
         }
 
     }
+    
+    public static void aparencia(){
+    
+        int modo = 2;
+        
+        switch (modo){
+            
+            case 1 : FlatDarkLaf.setup();
+            break;
+            
+            case 2 : FlatLightLaf.setup();
+            break;
+                    
+        } 
+    
+    }
 
     /**
      * Creates new form TelaLogin
@@ -294,7 +310,7 @@ public class TelaLogin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        FlatDarkLaf.setup();
+        aparencia();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaLogin().setVisible(true);
