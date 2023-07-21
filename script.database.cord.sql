@@ -14,6 +14,7 @@ emailUsuario varchar(60),
 login varchar(20),
 senha varchar(20),
 perfil varchar(20),
+preferenciasUsuario varchar(20),
 primary key(codUsuario)
 )default charset = utf8;
 
@@ -33,8 +34,8 @@ primary key(codCliente)
 create table if not exists tbEnderecoClientes(
 codCliente int not null auto_increment,
 ruaCliente varchar(60) not null,
-bairroCliente varchar(14),
-cidadeCliente varchar(14),
+bairroCliente varchar(20),
+cidadeCliente varchar(20),
 ufCliente varchar(2),
 primary key(codCliente)
 )default charset = utf8;
@@ -42,8 +43,8 @@ primary key(codCliente)
 create table if not exists tbEnderecoUsuarios(
 codUsuario int not null auto_increment,
 ruaUsuario varchar(60) not null,
-bairroUsuario varchar(14),
-cidadeUsuario varchar(14),
+bairroUsuario varchar(20),
+cidadeUsuario varchar(20),
 ufUsuario varchar(2),
 primary key(codUsuario)
 )default charset = utf8;
@@ -65,9 +66,24 @@ garantiaOS varchar(3),
 nomeUsuario varchar(60),
 dataAberturaOS varchar(14),
 dataEncerramentoOS varchar(14),
+situacaoOS varchar(20),
 laudoTecnicoOS varchar(300),
 tecnicoOS varchar(20),
 custoTotalOS varchar(14),
 primary key(numOS)
 )default charset = utf8;
+
+create table if not exists tbPreferenciasUsuarios(
+codUsuario int not null auto_increment,
+idiomaUsuario varchar(20),
+temaCoresUsuario varchar(20),
+primary key(codUsuario)
+)default charset = utf8;
+
+/* alter table <tabela origem> add constraint <nome restrição> foreing key(<campo tabela origem>) references <tabela destino> (<campo tabela destino>)*/
+
+alter table tbUsuarios 
+add constraint FK 
+foreign key (enderecoUsuario) 
+references tbEnderecoUsuarios ();
 
