@@ -1,6 +1,8 @@
 create database cord;
 use cord;
 
+desc tbUsuarios;
+
 create table if not exists tbUsuarios(
 codUsuario int not null auto_increment,
 nomeUsuario varchar(60) not null,
@@ -16,7 +18,7 @@ senha varchar(20),
 perfil varchar(20),
 preferenciasUsuario varchar(20),
 primary key(codUsuario)
-)default charset = utf8;
+)default charset = utf8mb4;
 
 create table if not exists tbClientes(
 codCliente int not null auto_increment,
@@ -29,25 +31,25 @@ telefone1Cliente varchar(13) not null,
 telefone2Cliente varchar(13),
 emailCliente varchar(60),
 primary key(codCliente)
-)default charset = utf8;
+)default charset = utf8mb4;
 
 create table if not exists tbEnderecoClientes(
-codCliente int not null auto_increment,
+codEndCliente int not null auto_increment,
 ruaCliente varchar(60) not null,
 bairroCliente varchar(20),
 cidadeCliente varchar(20),
 ufCliente varchar(2),
-primary key(codCliente)
-)default charset = utf8;
+primary key(codEndCliente)
+)default charset = utf8mb4;
 
 create table if not exists tbEnderecoUsuarios(
-codUsuario int not null auto_increment,
+codEndUsuario int not null auto_increment,
 ruaUsuario varchar(60) not null,
 bairroUsuario varchar(20),
 cidadeUsuario varchar(20),
 ufUsuario varchar(2),
-primary key(codUsuario)
-)default charset = utf8;
+primary key(codEndUsuario)
+)default charset = utf8mb4;
 
 create table if not exists tbItensConserto(
 codItem int not null auto_increment,
@@ -55,7 +57,7 @@ refItem varchar(60) not null,
 precoCusto varchar(14),
 precoVenda varchar(14),
 primary key(codItem)
-)default charset = utf8;
+)default charset = utf8mb4;
 
 create table if not exists tbOS(
 numOS int not null auto_increment,
@@ -71,19 +73,23 @@ laudoTecnicoOS varchar(300),
 tecnicoOS varchar(20),
 custoTotalOS varchar(14),
 primary key(numOS)
-)default charset = utf8;
+)default charset = utf8mb4;
 
 create table if not exists tbPreferenciasUsuarios(
-codUsuario int not null auto_increment,
+codPrefUsuario int not null auto_increment,
 idiomaUsuario varchar(20),
 temaCoresUsuario varchar(20),
-primary key(codUsuario)
-)default charset = utf8;
+primary key(codPrefUsuario)
+)default charset = utf8mb4;
 
 /* alter table <tabela origem> add constraint <nome restrição> foreing key(<campo tabela origem>) references <tabela destino> (<campo tabela destino>)*/
 
 alter table tbUsuarios 
 add constraint FK 
 foreign key (enderecoUsuario) 
-references tbEnderecoUsuarios ();
+references tbEnderecoUsuarios (codEndUsuario);
+
+alter table tbClientes
+add foreign key (enderecoCliente)
+references tbEnderecoClientes (codEndCliente);
 
