@@ -4,6 +4,8 @@
  */
 package br.com.cord.telas;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -19,6 +21,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
+    }
+    
+    public static void aparencia(){
+    
+        int modo = 2;
+        
+        if(modo >0 || modo < 2 ){
+            modo++; 
+        }
+        else{
+            modo--;
+        }
+        
+        switch (modo){
+            
+            case 1 : FlatDarkLaf.setup();
+            break;
+            
+            case 2 : FlatLightLaf.setup();
+            break;
+                    
+        } 
+    
     }
 
     /**
@@ -273,6 +298,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jToggleButton1StateChanged(evt);
             }
         });
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
         jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
@@ -358,7 +388,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                        .addContainerGap(44, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCadastroOS)
@@ -387,7 +417,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGap(119, 119, 119))))
         );
 
-        setSize(new java.awt.Dimension(1352, 806));
+        setSize(new java.awt.Dimension(1352, 823));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -451,6 +481,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jToggleButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton1StateChanged
        
     }//GEN-LAST:event_jToggleButton1StateChanged
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        aparencia();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
