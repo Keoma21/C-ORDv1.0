@@ -7,8 +7,9 @@ package br.com.cord.telas;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JInternalFrame;
 import javax.swing.*;
-
-
+import java.sql.*;
+import br.com.cord.dal.ModuloConexao;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -16,14 +17,18 @@ import javax.swing.*;
  */
 public class TelaOS extends javax.swing.JInternalFrame {
 
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form TelaOS
      */
-    public TelaOS() {        
+    public TelaOS() {
         initComponents();
         setMaximizable(true);
+        conexao = ModuloConexao.conector();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,46 +109,47 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jTextField21 = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jTextField22 = new javax.swing.JTextField();
+        valor4 = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         jTextField23 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        valor1 = new javax.swing.JTextField();
         jTextField24 = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
-        jTextField25 = new javax.swing.JTextField();
+        valor5 = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        valor2 = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         jTextField17 = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jTextField18 = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        jTextField19 = new javax.swing.JTextField();
+        valor3 = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jTextField26 = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
         jTextField27 = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
-        jTextField28 = new javax.swing.JTextField();
+        valor6 = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
         jTextField29 = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
         jTextField30 = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
-        jTextField31 = new javax.swing.JTextField();
+        valor7 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
+        lblValorTotalOS = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
+        btnSomar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -158,13 +164,13 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cód", "Nome", "Fone"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -576,9 +582,16 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jLabel44.setText("Valor TOTAL:");
 
-        jLabel45.setText("jLabel45");
+        lblValorTotalOS.setText("jLabel45");
 
         jLabel46.setText("jLabel46");
+
+        btnSomar.setText("Somar");
+        btnSomar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSomarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -598,7 +611,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                         .addGap(33, 33, 33)
                                         .addComponent(jLabel31)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField19))
+                                        .addComponent(valor3))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel29)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -612,7 +625,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                             .addGap(33, 33, 33)
                                             .addComponent(jLabel28)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextField16))
+                                            .addComponent(valor2))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jLabel26)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -625,7 +638,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                             .addGap(33, 33, 33)
                                             .addComponent(jLabel25)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextField13))
+                                            .addComponent(valor1))
                                         .addComponent(jLabel22)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                             .addComponent(jLabel23)
@@ -640,7 +653,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                                 .addGap(33, 33, 33)
                                                 .addComponent(jLabel37)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextField25))
+                                                .addComponent(valor5))
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel35)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -653,7 +666,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                                 .addGap(33, 33, 33)
                                                 .addComponent(jLabel34)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTextField22))
+                                                .addComponent(valor4))
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel32)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -666,7 +679,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                     .addGap(33, 33, 33)
                                     .addComponent(jLabel40)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField28))
+                                    .addComponent(valor6))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel38)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -681,7 +694,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                     .addGap(33, 33, 33)
                                     .addComponent(jLabel43)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField31))
+                                    .addComponent(valor7))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel41)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -693,7 +706,8 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel46)
-                                    .addComponent(jLabel45))))
+                                    .addComponent(lblValorTotalOS)))
+                            .addComponent(btnSomar))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -724,7 +738,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel24)
                                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel25)
-                                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(valor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -734,7 +748,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel42)
                                     .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel43)
-                                    .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(valor7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -746,7 +760,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel27)
                                     .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel28)
-                                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(valor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -762,13 +776,14 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                 .addGap(9, 9, 9)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel44)
-                                    .addComponent(jLabel45))))
+                                    .addComponent(lblValorTotalOS))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel30)
                             .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel31)
-                            .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(valor3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSomar))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -778,7 +793,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                             .addComponent(jLabel33)
                             .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel34)
-                            .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(valor4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -788,7 +803,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                             .addComponent(jLabel36)
                             .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel37)
-                            .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(valor5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -798,7 +813,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                             .addComponent(jLabel39)
                             .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel40)
-                            .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(valor6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -864,8 +879,14 @@ public class TelaOS extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField29ActionPerformed
 
+    private void btnSomarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSomarActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSomarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSomar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -918,7 +939,6 @@ public class TelaOS extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
@@ -949,32 +969,33 @@ public class TelaOS extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
     private javax.swing.JTextField jTextField23;
     private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField26;
     private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    public javax.swing.JLabel lblValorTotalOS;
+    public javax.swing.JTextField valor1;
+    public javax.swing.JTextField valor2;
+    private javax.swing.JTextField valor3;
+    private javax.swing.JTextField valor4;
+    private javax.swing.JTextField valor5;
+    private javax.swing.JTextField valor6;
+    private javax.swing.JTextField valor7;
     // End of variables declaration//GEN-END:variables
 }

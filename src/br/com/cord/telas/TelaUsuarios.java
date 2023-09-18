@@ -38,22 +38,23 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }
     
         private void adicionar() {
-        String sql = "insert into tbusuarios (codUsuario,nomeUsuario,cpfUsuario,sexoUsuario,enderecoUsuario,dataNascimentoUsuario,telefone1Usuario,telefone2Usuario,login,senha,perfilUsuario,emailUsuario) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+           
+            
+        String sql = "insert into tbUsuarios (nomeUsuario,cpfUsuario,sexoUsuario,enderecoUsuario,dataNascimentoUsuario,telefone1Usuario,telefone2Usuario,login,senha,perfilUsuario,emailUsuario) values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
 
-            pst.setString(1, txtCodUsuario.getText());
-            pst.setString(2, txtUsuNome.getText());
-            pst.setString(3, txtCPFUsuario.getText());
-            pst.setString(4, txtSexUsuario.getSelectedItem().toString());
-            pst.setString(5, txtEndUsuario.getText());
-            pst.setString(6, txtNascUsuario.getText());
-            pst.setString(7, txtFone1Usuario.getText());
-            pst.setString(8, txtFone2Usuario.getText());
-            pst.setString(9, txtLoginUsuario.getText());
-            pst.setString(10, txtSenhaUsuario.getText());
-            pst.setString(11, txtPerfilUsuario.getSelectedItem().toString());
-            pst.setString(12, txtEmailUsuario.getText());
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtCPFUsuario.getText());
+            pst.setString(3, txtSexUsuario.getSelectedItem().toString());
+            pst.setString(4, txtEndUsuario.getText());
+            pst.setString(5, txtNascUsuario.getText());
+            pst.setString(6, txtFone1Usuario.getText());
+            pst.setString(7, txtFone2Usuario.getText());
+            pst.setString(8, txtLoginUsuario.getText());
+            pst.setString(9, txtSenhaUsuario.getText());
+            pst.setString(10, txtPerfilUsuario.getSelectedItem().toString());
+            pst.setString(11, txtEmailUsuario.getText());
 
             if (txtUsuNome.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
@@ -368,17 +369,17 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         };
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Cód", "Nome", "Telefone", "Login", "Perfil"
+                "Cód", "Nome", "Perfil"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
