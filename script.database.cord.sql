@@ -1,8 +1,6 @@
 create database cord;
 use cord;
 
-desc tbUsuarios;
-
 create table if not exists tbUsuarios(
 codUsuario int not null auto_increment,
 nomeUsuario varchar(60) not null,
@@ -20,6 +18,11 @@ preferenciasUsuario varchar(20),
 primary key(codUsuario)
 )default charset = utf8mb4;
 
+select * from tbusuarios;
+
+alter table tbUsuarios
+rename column perfil to perfilUsuario;
+
 create table if not exists tbClientes(
 codCliente int not null auto_increment,
 nomeCliente varchar(60) not null,
@@ -33,24 +36,6 @@ emailCliente varchar(60),
 primary key(codCliente)
 )default charset = utf8mb4;
 
-create table if not exists tbEnderecoClientes(
-codEndCliente int not null auto_increment,
-ruaCliente varchar(60) not null,
-bairroCliente varchar(20),
-cidadeCliente varchar(20),
-ufCliente varchar(2),
-primary key(codEndCliente)
-)default charset = utf8mb4;
-
-create table if not exists tbEnderecoUsuarios(
-codEndUsuario int not null auto_increment,
-ruaUsuario varchar(60) not null,
-bairroUsuario varchar(20),
-cidadeUsuario varchar(20),
-ufUsuario varchar(2),
-primary key(codEndUsuario)
-)default charset = utf8mb4;
-
 create table if not exists tbItensConserto(
 codItem int not null auto_increment,
 refItem varchar(60) not null,
@@ -61,35 +46,75 @@ primary key(codItem)
 
 create table if not exists tbOS(
 numOS int not null auto_increment,
+idClienteOS int,
 descOS varchar(60) not null,
 nomeCliente varchar(20),
 defeitoOS varchar(300),
 garantiaOS varchar(3),
 nomeUsuario varchar(60),
-dataAberturaOS varchar(14),
+dataAberturaOS timestamp default current_timestamp,
 dataEncerramentoOS varchar(14),
 situacaoOS varchar(20),
+conclusaoOS varchar(20),
 laudoTecnicoOS varchar(300),
 tecnicoOS varchar(20),
 custoTotalOS varchar(14),
-primary key(numOS)
+tipoOS varchar(15),
+autorizAteOS varchar(10),
+OSAnterior varchar(10),
+primary key(numOS),
+foreign key(idClienteOS) references tbClientes(codCliente)
 )default charset = utf8mb4;
 
-create table if not exists tbPreferenciasUsuarios(
-codPrefUsuario int not null auto_increment,
-idiomaUsuario varchar(20),
-temaCoresUsuario varchar(20),
-primary key(codPrefUsuario)
-)default charset = utf8mb4;
+describe tbUsuarios;
+insert into tbUsuarios (codUsuario, nomeUsuario, cpfUsuario, sexoUsuario, enderecoUsuario, dataNascimentoUsuario, telefone1Usuario, telefone2Usuario, emailUsuario, senha, perfilUsuario, preferenciasUsuario)
+values(
+Default,
+"Bianca Alana Santos Lopes",
+"026.744.350.44",
+"F",
+"Rua 12",
+"21/10/2008",
+"5199998888",
+"5188889999",
+"bi@yahoo.com.br",
+"bianca",
+"123",
+"Atendente");
 
-/* alter table <tabela origem> add constraint <nome restrição> foreing key(<campo tabela origem>) references <tabela destino> (<campo tabela destino>)*/
+describe tbClientes;
+describe TbOS;
+select * from tbclientes;
 
-alter table tbUsuarios 
-add constraint FK 
-foreign key (enderecoUsuario) 
-references tbEnderecoUsuarios (codEndUsuario);
+use cord;
+alter table tbOS
+add tipoOS varchar(15) not null;
 
-alter table tbClientes
-add foreign key (enderecoCliente)
-references tbEnderecoClientes (codEndCliente);
+describe tbos;
+desc tbClientes;
+alter table tbos
+add autorizAtéOS varchar(10);
+alter table tbos
+add OSAnterior varchar(10);
+alter table tbos
+add conclusaoOS varchar(20) after situacaoOS;
+
+alter table tbos
+add idClienteOS int not null after numOS;
+
+alter table tbos
+add foreign key (idClienteOS) references tbClientes(codCliente);
+
+alter table tbos
+drop column idClienteOS;
+
+describe tbos;
+
+ALTER TABLE
+   tbos
+CHANGE
+   dataAberturaOS
+   dataAberturaOS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+   
+   select * from tbos;
 

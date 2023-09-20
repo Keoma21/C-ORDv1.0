@@ -55,7 +55,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso");
+                    JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso");
                     limpar();
                 }
             }
@@ -89,7 +89,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do usuário alterados com sucesso");
+                    JOptionPane.showMessageDialog(null, "Dados do cliente alterados com sucesso");
                     limpar();
                     //btnAdicionar.setEnabled(true);
                 }
