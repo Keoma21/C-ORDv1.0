@@ -116,5 +116,8 @@ CHANGE
    dataAberturaOS
    dataAberturaOS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
    
+   use cord;
    select * from tbos;
+   
+   select numOS, date_format(dataAberturaOS, '%d/%m/%Y - %H:%i'),descOS,nomeCliente,defeitoOS,garantiaOS,nomeUsuario,situacaoOS,conclusaoOS,laudoTecnicoOS,tecnicoOS,custoTotalOS,tipoOS,autorizAteOS,OSAnterior from tbOS where numOS=1;
 

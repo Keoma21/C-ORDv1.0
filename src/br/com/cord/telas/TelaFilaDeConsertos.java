@@ -4,17 +4,41 @@
  */
 package br.com.cord.telas;
 
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import javax.swing.JInternalFrame;
+import javax.swing.*;
+import java.sql.*;
+import br.com.cord.dal.ModuloConexao;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author Keoma
  */
 public class TelaFilaDeConsertos extends javax.swing.JFrame {
+    
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form TelaFilaDeConsertos
      */
     public TelaFilaDeConsertos() {
         initComponents();
+    }
+    
+        private void pesquisarOrdens() {
+        String sql = "select descOS as Produto, dataAberturaOS as Entrada, nomeCliente as Cliente, situacaoOS as Situação from tbOs";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            tblOrdens.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -27,7 +51,7 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblOrdens = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
@@ -36,16 +60,14 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Fila de Consertos");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrdens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Amplificador Frontmann 212", "21/06", "José Antônio", "Em bancada"},
-                {"Violao Dallas", "22/06", "Maria", "Aberto"},
-                {"Teclado Roland", "24/06", "João", "Aberto"},
-                {"Caixa Ativa ", "25/06", "Pedro", "Aberto"},
-                {"Escaleta CSR 37", "26/06", "Rafaela", "Pronto"},
-                {"Mesa de Som Behringer", "26/06", "Carlos", "Pronto"},
-                {"Guitarra T65", "27/06", "Kiko", "Entregue"},
                 {null, null, "", null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -54,7 +76,7 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
                 "Produto", "Entrada", "Cliente", "Situação"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblOrdens);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Fila de Consertos");
@@ -62,6 +84,11 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
         jButton1.setText("Atualizar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setSelected(true);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Sair");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -84,7 +111,7 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(412, 412, 412))
+                                .addGap(405, 405, 405))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 27, Short.MAX_VALUE))))
         );
@@ -107,6 +134,16 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(608, 764));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        pesquisarOrdens();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        pesquisarOrdens();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +186,6 @@ public class TelaFilaDeConsertos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblOrdens;
     // End of variables declaration//GEN-END:variables
 }

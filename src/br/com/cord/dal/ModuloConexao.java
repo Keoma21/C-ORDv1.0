@@ -13,9 +13,9 @@ public class ModuloConexao {
     public static Connection conector(){
         java.sql.Connection conexao = null;
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/cord";
-        String user = "root";
-        String password = "abc1234@";
+        String url = "jdbc:mysql://localhost:3306/cord?characterEncoding=utf-8";
+        String user = "dba";
+        String password = "Cord@123456";
         
         try {
             Class.forName(driver);
